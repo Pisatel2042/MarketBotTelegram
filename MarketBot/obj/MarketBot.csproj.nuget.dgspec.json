@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "Z:\\2023-2024 уч.год\\21 ИС\\ИТ\\2п_гр\\Шумейко_Василий\\MarketBot\\MarketBot\\MarketBot.csproj": {}
+    "C:\\Users\\315\\Documents\\GitHub\\MarketBotTelegram\\MarketBot\\MarketBot.csproj": {}
   },
   "projects": {
-    "Z:\\2023-2024 уч.год\\21 ИС\\ИТ\\2п_гр\\Шумейко_Василий\\MarketBot\\MarketBot\\MarketBot.csproj": {
+    "C:\\Users\\315\\Documents\\GitHub\\MarketBotTelegram\\MarketBot\\MarketBot.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "Z:\\2023-2024 уч.год\\21 ИС\\ИТ\\2п_гр\\Шумейко_Василий\\MarketBot\\MarketBot\\MarketBot.csproj",
+        "projectUniqueName": "C:\\Users\\315\\Documents\\GitHub\\MarketBotTelegram\\MarketBot\\MarketBot.csproj",
         "projectName": "MarketBot",
-        "projectPath": "Z:\\2023-2024 уч.год\\21 ИС\\ИТ\\2п_гр\\Шумейко_Василий\\MarketBot\\MarketBot\\MarketBot.csproj",
+        "projectPath": "C:\\Users\\315\\Documents\\GitHub\\MarketBotTelegram\\MarketBot\\MarketBot.csproj",
         "packagesPath": "C:\\Users\\315\\.nuget\\packages\\",
-        "outputPath": "Z:\\2023-2024 уч.год\\21 ИС\\ИТ\\2п_гр\\Шумейко_Василий\\MarketBot\\MarketBot\\obj\\",
+        "outputPath": "C:\\Users\\315\\Documents\\GitHub\\MarketBotTelegram\\MarketBot\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\315\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -40,6 +40,20 @@
         "net7.0": {
           "targetAlias": "net7.0",
           "dependencies": {
+            "Microsoft.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[6.0.28, )"
+            },
+            "Microsoft.EntityFrameworkCore.SqlServer": {
+              "target": "Package",
+              "version": "[6.0.28, )"
+            },
+            "Microsoft.EntityFrameworkCore.Tools": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[6.0.28, )"
+            },
             "Telegram.Bot": {
               "target": "Package",
               "version": "[19.0.0, )"
