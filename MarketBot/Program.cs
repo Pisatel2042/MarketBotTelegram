@@ -18,11 +18,12 @@ using Newtonsoft.Json.Converters;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 internal class Program
 
 {
-   
+
     private static ReceiverOptions _receiverOptions;
     private static void Main(string[] args)
     {
@@ -46,8 +47,9 @@ internal class Program
         throw new NotImplementedException();
     }
 
-    private static async Task UpdateHandler(ITelegramBotClient botClient, Update update, CancellationToken cancellationToken)
-    {  
+    private static async Task UpdateHandler(ITelegramBotClient botClient, Telegram.Bot.Types.Update update, CancellationToken cancellationToken)
+    {
+        await ButotonUp(botClient,update,cancellationToken);
         await CallBack(botClient, update, cancellationToken);
         await MarketHandler(botClient, update, cancellationToken);
         await MessageHadler(botClient, update, cancellationToken);
@@ -55,10 +57,10 @@ internal class Program
 
 
     }
-    async static Task MessageHadler(ITelegramBotClient botClient, Update update, CancellationToken cancellationToken)
+    async static Task MessageHadler(ITelegramBotClient botClient, Telegram.Bot.Types.   Update update, CancellationToken cancellationToken)
     {
         var message = update.Message;
-       
+
         //var user = message.From;
 
 
@@ -71,15 +73,15 @@ internal class Program
                 //await InlineButtonMainMenu(botClient,update.Message.Chat.Id, cancellationToken);
             }
         }
-                 
+
         return;
 
     }
-    
-    public static async Task InlineButtonMainMenu(ITelegramBotClient botClient,long? ChatId, CancellationToken cancellationToken)
+
+    public static async Task InlineButtonMainMenu(ITelegramBotClient botClient, long? ChatId, CancellationToken cancellationToken)
     {
 
-       // var message = update.Message;
+        // var message = update.Message;
         var keyboardInlineMenu = new InlineKeyboardMarkup(new[]
                           {
                         new []
@@ -99,14 +101,14 @@ internal class Program
 
         await botClient.SendTextMessageAsync(ChatId, "⠀⠀⠀⠀⠀⠀⠀⠀⠀Главное меню⠀⠀⠀⠀⠀⠀⠀⠀⠀", replyMarkup: keyboardInlineMenu, cancellationToken: cancellationToken);
         return;
-        
+
 
     }
-    private static async Task CallBack(ITelegramBotClient botClient, Update update, CancellationToken cancellationToken)
+    private static async Task CallBack(ITelegramBotClient botClient, Telegram.Bot.Types.Update update, CancellationToken cancellationToken)
     {
-        
+
         //вывод в зависимости от выбранной кнопки
-                    Message message = update.Message;
+        Message message = update.Message;
         if (update != null && update.CallbackQuery != null)
         {
             string answer = update.CallbackQuery.Data;
@@ -126,23 +128,23 @@ internal class Program
                     break;
                 case "buttonRules":
                     //await Rules(botClient,update, cancellationToken);
-                    await UpdateButton(botClient,update);
+                    await UpdateButton(botClient, update);
                     break;
                 case "buttonmain":
                     await InlineButtonMainMenu(botClient, update.CallbackQuery.Message.Chat.Id, cancellationToken);
                     break;
                 case "buttonBack":
                     // await botClient.DeleteMessageAsync(update.CallbackQuery.Message.Chat.Id, messageId: message.MessageId - 1, cancellationToken: cancellationToken);
-                   
-                    await InlineButtonMainMenu(botClient,update.CallbackQuery.Message.Chat.Id, cancellationToken);
-                   
+
+                    await InlineButtonMainMenu(botClient, update.CallbackQuery.Message.Chat.Id, cancellationToken);
+
                     break;
             }
 
 
         }
     }
-    public static async Task UpdateButton(ITelegramBotClient botClient, Update update)
+    public static async Task UpdateButton(ITelegramBotClient botClient, Telegram.Bot.Types.Update update)
     {
         var message = await botClient.SendTextMessageAsync(update.CallbackQuery.Message.Chat.Id, "Начальное сообщение с кнопками",
            replyMarkup: new InlineKeyboardMarkup(new[]
@@ -154,22 +156,9 @@ internal class Program
                 }
            }));
 
-        // Задержка перед обновлением кнопок
-        await Task.Delay(5000);
-
-        // Обновляем кнопки сообщения
-        await botClient.EditMessageReplyMarkupAsync(update.CallbackQuery.Message.Chat.Id, message.MessageId,
-            replyMarkup: new InlineKeyboardMarkup(new[]
-            {
-                new []
-                {
-                    InlineKeyboardButton.WithCallbackData("Обновленная кнопка 1", "updated_button1"),
-                    InlineKeyboardButton.WithCallbackData("Обновленная кнопка 2", "updated_button2")
-                }
-            }));
-
     }
-    public static async Task Support(ITelegramBotClient botClient, Update update)
+
+    public static async Task Support(ITelegramBotClient botClient, Telegram.Bot.Types.Update update)
     {
         var keyboardInlineSupportBack = new InlineKeyboardMarkup(new[]
         {
@@ -181,13 +170,13 @@ internal class Program
         await botClient.SendTextMessageAsync(update.CallbackQuery.Message.Chat, $"Для написания жадолы напишите нашему боту @botReport", replyMarkup: keyboardInlineSupportBack);
 
     }
-    public  static async Task Settigs(ITelegramBotClient botClient, Update update)
+    public static async Task Settigs(ITelegramBotClient botClient, Telegram.Bot.Types.Update update)
     {
-        await botClient.SendTextMessageAsync(update.Message.Chat.Id,$"Настройки \n  твой никней {update.Message.From} \n Баланс ");
+        await botClient.SendTextMessageAsync(update.Message.Chat.Id, $"Настройки \n  твой никней {update.Message.From} \n Баланс ");
     }
-    public static async Task Rules(ITelegramBotClient botClient, Update update,CancellationToken cancellationToken)
+    public static async Task Rules(ITelegramBotClient botClient, Telegram.Bot.Types.Update update, CancellationToken cancellationToken)
 
-    {   string messageRules = "1️⃣ Мы ничего не несем  .\n 2️⃣ Базар как вода и то и то нужно фильтроват иначе почкам конец .\n 3️⃣ Шкаф не тумба - тимон и пумба .\n 4️⃣ Знаешь красное море ? - я покрасил . \n 5️⃣ Мало ешь больше кушай.\n 6️⃣  Джони но не Деп";
+    { string messageRules = "1️⃣ Мы ничего не несем  .\n 2️⃣ Базар как вода и то и то нужно фильтроват иначе почкам конец .\n 3️⃣ Шкаф не тумба - тимон и пумба .\n 4️⃣ Знаешь красное море ? - я покрасил . \n 5️⃣ Мало ешь больше кушай.\n 6️⃣  Джони но не Деп";
         var message = update.Message;
         var keyboardInlineBack = new InlineKeyboardMarkup(new[]
                         {
@@ -202,16 +191,16 @@ internal class Program
 
         Console.WriteLine("ну привет");
 
-        await botClient.SendTextMessageAsync(update.CallbackQuery.Message.Chat,$"Правила \n {messageRules}", replyMarkup: keyboardInlineBack, cancellationToken: cancellationToken);
+        await botClient.SendTextMessageAsync(update.CallbackQuery.Message.Chat, $"Правила \n {messageRules}", replyMarkup: keyboardInlineBack, cancellationToken: cancellationToken);
         // await botClient.SendTextMessageAsync(message.Chat.Id, messageRules, replyMarkup: keyboardInlineBack);
         return;
 
 
-        
+
 
     }
-  
-    public static async Task Market(ITelegramBotClient botClient, Update update, CancellationToken cancellationToken)
+
+    public static async Task Market(ITelegramBotClient botClient, Telegram.Bot.Types.Update update, CancellationToken cancellationToken)
     {
         var keyboardInlineMarketAccount = new InlineKeyboardMarkup(new[]
                        {
@@ -246,7 +235,7 @@ internal class Program
 
 
     }
-    public static async Task MarketHandler(ITelegramBotClient botClient, Update update, CancellationToken cancellationToken)
+    public static async Task MarketHandler(ITelegramBotClient botClient, Telegram.Bot.Types.Update update, CancellationToken cancellationToken)
     {
         var message = update.Message;
         //вывод в зависимости от выбранной кнопки
@@ -278,16 +267,16 @@ internal class Program
                     await botClient.SendTextMessageAsync(update.CallbackQuery.Message.Chat.Id, "⠀⠀⠀⠀⠀⠀⠀⠀Аккаунт Телеграмм⠀⠀⠀⠀⠀⠀⠀⠀", replyMarkup: keyboardInlineMenu, cancellationToken: cancellationToken);
                     break;
                 case "buttonAccountVK":
-                   
-                   
+
+
                     break;
                 case "buttonAccountSteam":
-                    
+
                     break;
                 case "buttonAccountEA":
                     break;
                 case "buttonAccountEGS":
-                   
+
                     break;
                 case "buttonBack":
                     await InlineButtonMainMenu(botClient, update.CallbackQuery.Message.Chat.Id, cancellationToken);
@@ -298,12 +287,12 @@ internal class Program
 
         }
     }
-    public static async Task Telegramaccount(ITelegramBotClient botClient, Update update, CancellationToken cancellationToken)
+    public static async Task Telegramaccount(ITelegramBotClient botClient, Telegram.Bot.Types.Update update, CancellationToken cancellationToken)
     {
 
-       
+
         var message = update.Message;
-       
+
 
         if (update != null && update.CallbackQuery != null)
         {
@@ -311,12 +300,12 @@ internal class Program
             switch (answer)
             {
                 case "ButtonTelegramNew":
-                    await botClient.SendTextMessageAsync(update.CallbackQuery.Message.Chat.Id,"Ты выбрал новый   телеграмм");  
-                    
+                    await botClient.SendTextMessageAsync(update.CallbackQuery.Message.Chat.Id, "Ты выбрал новый   телеграмм");
 
 
 
-                    
+
+
                     break;
                 case "buttonTelegramADota":
                     await botClient.SendTextMessageAsync(update.CallbackQuery.Message.Chat.Id, "Ты выбрал новый  акк для доты  ");
@@ -326,9 +315,9 @@ internal class Program
                     await botClient.SendTextMessageAsync(update.CallbackQuery.Message.Chat.Id, "Ты выбрал новый   авторизованый акк");
                     break;
                 case "buttonRAckk":
-                    await botClient.SendTextMessageAsync(update.CallbackQuery.Message.Chat.Id, "Ты выбрал случайунй акк"  );
+                    await botClient.SendTextMessageAsync(update.CallbackQuery.Message.Chat.Id, "Ты выбрал случайунй акк");
                     break;
-               
+
                 case "buttonBack":
                     await InlineButtonMainMenu(botClient, update.CallbackQuery.Message.Chat.Id, cancellationToken);
 
@@ -338,4 +327,52 @@ internal class Program
 
         }
     }
- }
+    public static async Task ButotonUp(ITelegramBotClient botClient, Telegram.Bot.Types.Update update, CancellationToken cancellationToken)
+    {
+        var message = update.Message;
+        if (update != null && update.CallbackQuery != null)
+        {
+            string answer = update.CallbackQuery.Data;
+            switch (answer)
+            {
+                case "button1":
+                    //await botClient.SendTextMessageAsync(update.CallbackQuery.Message.Chat.Id, "Ну привет");
+                    await botClient.EditMessageReplyMarkupAsync(update.CallbackQuery.Message.Chat.Id, update.CallbackQuery.Message.MessageId,
+            replyMarkup: new InlineKeyboardMarkup(new[]
+            {
+                new []
+                {
+                    InlineKeyboardButton.WithCallbackData("Обновленная кнопка 1", "updated_button1"),
+                    InlineKeyboardButton.WithCallbackData("Обновленная кнопка 2", "updated_button2")
+                }
+            }));
+                    break;
+                case "buttonTransactionHistory":
+                    await botClient.SendTextMessageAsync(update.CallbackQuery.Message.Chat.Id, answer);
+                    break;
+                case "buttonSettings":
+                    await botClient.SendTextMessageAsync(update.CallbackQuery.Message.Chat.Id, answer);
+                    break;
+                case "buttonSupport":
+                    await Support(botClient, update);
+                    break;
+                case "buttonRules":
+                    //await Rules(botClient,update, cancellationToken);
+                    await UpdateButton(botClient, update);
+                    break;
+                case "buttonmain":
+                    await InlineButtonMainMenu(botClient, update.CallbackQuery.Message.Chat.Id, cancellationToken);
+                    break;
+                case "buttonBack":
+                    // await botClient.DeleteMessageAsync(update.CallbackQuery.Message.Chat.Id, messageId: message.MessageId - 1, cancellationToken: cancellationToken);
+
+                    await InlineButtonMainMenu(botClient, update.CallbackQuery.Message.Chat.Id, cancellationToken);
+
+                    break;
+            }
+
+
+        }
+    }
+
+}
