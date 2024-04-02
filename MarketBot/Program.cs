@@ -125,7 +125,8 @@ internal class Program
                     await Support(botClient, update);
                     break;
                 case "buttonRules":
-                    await Rules(botClient,update, cancellationToken);
+                    //await Rules(botClient,update, cancellationToken);
+                    await UpdateButton(botClient,update);
                     break;
                 case "buttonmain":
                     await InlineButtonMainMenu(botClient, update.CallbackQuery.Message.Chat.Id, cancellationToken);
@@ -140,6 +141,33 @@ internal class Program
 
 
         }
+    }
+    public static async Task UpdateButton(ITelegramBotClient botClient, Update update)
+    {
+        var message = await botClient.SendTextMessageAsync(update.CallbackQuery.Message.Chat.Id, "Начальное сообщение с кнопками",
+           replyMarkup: new InlineKeyboardMarkup(new[]
+           {
+                new []
+                {
+                    InlineKeyboardButton.WithCallbackData("Кнопка 1", "button1"),
+                    InlineKeyboardButton.WithCallbackData("Кнопка 2", "button2")
+                }
+           }));
+
+        // Задержка перед обновлением кнопок
+        await Task.Delay(5000);
+
+        // Обновляем кнопки сообщения
+        await botClient.EditMessageReplyMarkupAsync(update.CallbackQuery.Message.Chat.Id, message.MessageId,
+            replyMarkup: new InlineKeyboardMarkup(new[]
+            {
+                new []
+                {
+                    InlineKeyboardButton.WithCallbackData("Обновленная кнопка 1", "updated_button1"),
+                    InlineKeyboardButton.WithCallbackData("Обновленная кнопка 2", "updated_button2")
+                }
+            }));
+
     }
     public static async Task Support(ITelegramBotClient botClient, Update update)
     {
