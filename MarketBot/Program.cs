@@ -152,26 +152,28 @@ internal class Program
                     await InlineButtonMainMenu(botClient, update.CallbackQuery.Message.Chat.Id, cancellationToken);
                     break;
                 case "buttonBack":
-                    // await botClient.DeleteMessageAsync(update.CallbackQuery.Message.Chat.Id, messageId: message.MessageId - 1, cancellationToken: cancellationToken);
-                    var keyboardInlineMenu = new InlineKeyboardMarkup(new[]
-                         {
-                        new []
-                        {
-                            InlineKeyboardButton.WithCallbackData("🛒Магазин ",callbackData:"buttonMarket"),
-                            InlineKeyboardButton.WithCallbackData("🗃️История Сделок",callbackData:"buttonTransactionHistory"),
-                        },
-                        new []
-                        {
-                            InlineKeyboardButton.WithCallbackData("⚙️ Настройки  ",callbackData:"buttonSettings"),
+                    
+                     await botClient.DeleteMessageAsync(update.CallbackQuery.Message.Chat.Id, update.CallbackQuery.Message.MessageId, cancellationToken: cancellationToken);
+                   
+                    //var keyboardInlineMenu = new InlineKeyboardMarkup(new[]
+                    //     {
+                    //    new []
+                    //    {
+                    //        InlineKeyboardButton.WithCallbackData("🛒Магазин ",callbackData:"buttonMarket"),
+                    //        InlineKeyboardButton.WithCallbackData("🗃️История Сделок",callbackData:"buttonTransactionHistory"),
+                    //    },
+                    //    new []
+                    //    {
+                    //        InlineKeyboardButton.WithCallbackData("⚙️ Настройки  ",callbackData:"buttonSettings"),
 
-                            InlineKeyboardButton.WithCallbackData("🛠 ️Поддержка", callbackData: "buttonSupport"),
-                             InlineKeyboardButton.WithCallbackData("📜 Правила", callbackData: "buttonRules"),
-                        }
+                    //        InlineKeyboardButton.WithCallbackData("🛠 ️Поддержка", callbackData: "buttonSupport"),
+                    //         InlineKeyboardButton.WithCallbackData("📜 Правила", callbackData: "buttonRules"),
+                    //    }
 
-                    });
-                    await botClient.EditMessageTextAsync(update.CallbackQuery.Message.Chat.Id, update.CallbackQuery.Message.MessageId, "⠀⠀⠀⠀⠀⠀⠀⠀⠀Главное меню⠀⠀⠀⠀⠀⠀⠀⠀⠀");
-                    await botClient.EditMessageReplyMarkupAsync(update.CallbackQuery.Message.Chat.Id, update.CallbackQuery.Message.MessageId, replyMarkup: keyboardInlineMenu);
-
+                    //});
+                    //await botClient.EditMessageTextAsync(update.CallbackQuery.Message.Chat.Id, update.CallbackQuery.Message.MessageId, "⠀⠀⠀⠀⠀⠀⠀⠀⠀Главное меню⠀⠀⠀⠀⠀⠀⠀⠀⠀");
+                    //await botClient.EditMessageReplyMarkupAsync(update.CallbackQuery.Message.Chat.Id, update.CallbackQuery.Message.MessageId, replyMarkup: keyboardInlineMenu);
+                   
                     break;
             }
 
@@ -281,7 +283,7 @@ internal class Program
             switch (answer)
             {
                 case "buttonAccountTelegarm":
-                    var keyboardInlineMenu = new InlineKeyboardMarkup(new[]
+                    var keyboardInlineMenuTelegram = new InlineKeyboardMarkup(new[]
                      {
                         new []
                         {
@@ -300,7 +302,7 @@ internal class Program
                              InlineKeyboardButton.WithCallbackData("⬅️ Назад", callbackData: "buttonBackMenu"),
                         }
                     });
-                    await botClient.EditMessageReplyMarkupAsync(update.CallbackQuery.Message.Chat.Id, update.CallbackQuery.Message.MessageId, replyMarkup: keyboardInlineMenu);
+                    await botClient.EditMessageReplyMarkupAsync(update.CallbackQuery.Message.Chat.Id, update.CallbackQuery.Message.MessageId, replyMarkup: keyboardInlineMenuTelegram);
                     //await botClient.SendTextMessageAsync(update.CallbackQuery.Message.Chat.Id, "⠀⠀⠀⠀⠀⠀⠀⠀Аккаунт Телеграмм⠀⠀⠀⠀⠀⠀⠀⠀", replyMarkup: keyboardInlineMenu, cancellationToken: cancellationToken);
                     break;
                 case "buttonAccountVK":
