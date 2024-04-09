@@ -307,6 +307,8 @@ internal class Program
 
         }
     }
+
+    // Account 
     public static async Task Telegramaccount(ITelegramBotClient botClient, Telegram.Bot.Types.Update update, CancellationToken cancellationToken)
     {
 
@@ -339,15 +341,59 @@ internal class Program
                     break;
 
                 case "buttonBackMenu":
-                 await botClient.DeleteMessageAsync(update.CallbackQuery.Message.Chat.Id, update.CallbackQuery.Message.MessageId, cancellationToken: cancellationToken);
+                    var keyboardInlineMarketAccount = new InlineKeyboardMarkup(new[]
+                      {
+        new[]
+        {
+         InlineKeyboardButton.WithCallbackData("Аккаунт Телеграмм",callbackData:"buttonAccountTelegarm")
+        },
+        new []
+        {
+            InlineKeyboardButton.WithCallbackData("Аккакнт VK",callbackData: "buttonAccountVK"),
+        },
+        new[]
+        {
+            InlineKeyboardButton.WithCallbackData("Аккакнт Steam",callbackData: "buttonAccountSteam"),
+
+        },
+        new []
+        {
+             InlineKeyboardButton.WithCallbackData("Аккакнт EA",callbackData: "buttonAccountEA"),
+        },
+        new[]
+        {
+              InlineKeyboardButton.WithCallbackData("Аккакнт Epic Game Store",callbackData: "buttonAccountEGS"),
+
+        },
+        new []
+        {
+             InlineKeyboardButton.WithCallbackData("⬅️ Назад",callbackData: "buttonBack"),
+        },
+        });
+                    await botClient.EditMessageReplyMarkupAsync(update.CallbackQuery.Message.Chat.Id, update.CallbackQuery.Message.MessageId, replyMarkup: keyboardInlineMarketAccount, cancellationToken: cancellationToken);
                     break;
             }
 
 
         }
     }
+    public static async Task VkAccount(ITelegramBotClient botClient, Telegram.Bot.Types.Update update, CancellationToken cancellationToken)
+    {
 
     }
+    public static async Task SteamAccount(ITelegramBotClient botClient, Telegram.Bot.Types.Update update, CancellationToken cancellationToken)
+    {
+
+    }
+    public static async Task EaAccount(ITelegramBotClient botClient, Telegram.Bot.Types.Update update, CancellationToken cancellationToken)
+    {
+
+    }
+    public static async Task EpicGameStoreAccount(ITelegramBotClient botClient, Telegram.Bot.Types.Update update, CancellationToken cancellationToken)
+    {
+    }
+
+}
    
 
 
