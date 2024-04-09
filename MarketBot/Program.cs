@@ -69,7 +69,25 @@ internal class Program
             if (message.Text == "/start")
             {
                 await botClient.SendTextMessageAsync(message.Chat.Id, "Прветветвую тебя в магазине где ты можешь легко купить аккаунты для игр и для соцсетей ");
-                await InlineButtonMainMenu(botClient, message.Chat.Id, cancellationToken);
+                var keyboardInlineMenu = new InlineKeyboardMarkup(new[]
+                            {
+                        new []
+                        {
+                            InlineKeyboardButton.WithCallbackData("🛒Магазин ",callbackData:"buttonMarket"),
+                            InlineKeyboardButton.WithCallbackData("🗃️История Сделок",callbackData:"buttonTransactionHistory"),
+                        },
+                        new []
+                        {
+                            InlineKeyboardButton.WithCallbackData("⚙️ Настройки  ",callbackData:"buttonSettings"),
+
+                            InlineKeyboardButton.WithCallbackData("🛠 ️Поддержка", callbackData: "buttonSupport"),
+                             InlineKeyboardButton.WithCallbackData("📜 Правила", callbackData: "buttonRules"),
+                        }
+
+                    });
+
+                 await botClient.SendTextMessageAsync(update.Message.Chat.Id, "⠀⠀⠀⠀⠀⠀⠀⠀⠀Главное меню⠀⠀⠀⠀⠀⠀⠀⠀⠀", replyMarkup: keyboardInlineMenu, cancellationToken: cancellationToken);
+                return;
                 //await InlineButtonMainMenu(botClient,update.Message.Chat.Id, cancellationToken);
             }
         }
@@ -99,7 +117,7 @@ internal class Program
 
                     });
 
-        await botClient.SendTextMessageAsync(ChatId, "⠀⠀⠀⠀⠀⠀⠀⠀⠀Главное меню⠀⠀⠀⠀⠀⠀⠀⠀⠀", replyMarkup: keyboardInlineMenu, cancellationToken: cancellationToken);
+      // await botClient.SendTextMessageAsync(ChatId, "⠀⠀⠀⠀⠀⠀⠀⠀⠀Главное меню⠀⠀⠀⠀⠀⠀⠀⠀⠀", replyMarkup: keyboardInlineMenu, cancellationToken: cancellationToken);
         return;
 
 
@@ -115,7 +133,7 @@ internal class Program
             switch (answer)
             {
                 case "buttonMarket":
-                    await Market(botClient, update, cancellationToken);
+                    await Market(botClient,update,cancellationToken);
                     break;
                 case "buttonTransactionHistory":
                     await botClient.SendTextMessageAsync(update.CallbackQuery.Message.Chat.Id, answer);
@@ -135,8 +153,24 @@ internal class Program
                     break;
                 case "buttonBack":
                     // await botClient.DeleteMessageAsync(update.CallbackQuery.Message.Chat.Id, messageId: message.MessageId - 1, cancellationToken: cancellationToken);
+                    var keyboardInlineMenu = new InlineKeyboardMarkup(new[]
+                         {
+                        new []
+                        {
+                            InlineKeyboardButton.WithCallbackData("🛒Магазин ",callbackData:"buttonMarket"),
+                            InlineKeyboardButton.WithCallbackData("🗃️История Сделок",callbackData:"buttonTransactionHistory"),
+                        },
+                        new []
+                        {
+                            InlineKeyboardButton.WithCallbackData("⚙️ Настройки  ",callbackData:"buttonSettings"),
 
-                    await InlineButtonMainMenu(botClient, update.CallbackQuery.Message.Chat.Id, cancellationToken);
+                            InlineKeyboardButton.WithCallbackData("🛠 ️Поддержка", callbackData: "buttonSupport"),
+                             InlineKeyboardButton.WithCallbackData("📜 Правила", callbackData: "buttonRules"),
+                        }
+
+                    });
+                    await botClient.EditMessageTextAsync(update.CallbackQuery.Message.Chat.Id, update.CallbackQuery.Message.MessageId, "⠀⠀⠀⠀⠀⠀⠀⠀⠀Главное меню⠀⠀⠀⠀⠀⠀⠀⠀⠀");
+                    await botClient.EditMessageReplyMarkupAsync(update.CallbackQuery.Message.Chat.Id, update.CallbackQuery.Message.MessageId, replyMarkup: keyboardInlineMenu);
 
                     break;
             }
@@ -152,7 +186,9 @@ internal class Program
                 new []
                 {
                     InlineKeyboardButton.WithCallbackData("Кнопка 1", "button1"),
-                    InlineKeyboardButton.WithCallbackData("Кнопка 2", "button2")
+                    InlineKeyboardButton.WithCallbackData("Кнопка 2", "button2"),
+                    InlineKeyboardButton.WithCallbackData("назад", "button3")
+
                 }
            }));
 
@@ -249,8 +285,8 @@ internal class Program
                      {
                         new []
                         {
-                            InlineKeyboardButton.WithCallbackData("Свежие прям с печи Аккаунт",callbackData:"ButtonTelegramNew"),
-                            InlineKeyboardButton.WithCallbackData("Аккакунт для доты(100) ",callbackData:"buttonTelegramADota"),
+                            InlineKeyboardButton.WithCallbackData("Чистый  Аккаунт",callbackData:"ButtonTelegramNew"),
+                            InlineKeyboardButton.WithCallbackData("Аккаунт с премиум ",callbackData:"buttonTelegramADota"),
                         },
                         new []
                         {
@@ -261,10 +297,11 @@ internal class Program
                         },
                         new []
                         {
-                             InlineKeyboardButton.WithCallbackData("⬅️ Назад", callbackData: "buttonBack"),
+                             InlineKeyboardButton.WithCallbackData("⬅️ Назад", callbackData: "buttonBackMenu"),
                         }
                     });
-                    await botClient.SendTextMessageAsync(update.CallbackQuery.Message.Chat.Id, "⠀⠀⠀⠀⠀⠀⠀⠀Аккаунт Телеграмм⠀⠀⠀⠀⠀⠀⠀⠀", replyMarkup: keyboardInlineMenu, cancellationToken: cancellationToken);
+                    await botClient.EditMessageReplyMarkupAsync(update.CallbackQuery.Message.Chat.Id, update.CallbackQuery.Message.MessageId, replyMarkup: keyboardInlineMenu);
+                    //await botClient.SendTextMessageAsync(update.CallbackQuery.Message.Chat.Id, "⠀⠀⠀⠀⠀⠀⠀⠀Аккаунт Телеграмм⠀⠀⠀⠀⠀⠀⠀⠀", replyMarkup: keyboardInlineMenu, cancellationToken: cancellationToken);
                     break;
                 case "buttonAccountVK":
 
@@ -278,8 +315,9 @@ internal class Program
                 case "buttonAccountEGS":
 
                     break;
-                case "buttonBack":
-                    await InlineButtonMainMenu(botClient, update.CallbackQuery.Message.Chat.Id, cancellationToken);
+                case "buttonBackMenu":
+                    await botClient.DeleteMessageAsync(update.CallbackQuery.Message.Chat.Id, update.CallbackQuery.Message.MessageId-1);
+                   // await InlineButtonMainMenu(botClient, update.CallbackQuery.Message.Chat.Id, cancellationToken);
 
                     break;
             }
@@ -337,17 +375,19 @@ internal class Program
             {
                 case "button1":
                     //await botClient.SendTextMessageAsync(update.CallbackQuery.Message.Chat.Id, "Ну привет");
+                   
                     await botClient.EditMessageReplyMarkupAsync(update.CallbackQuery.Message.Chat.Id, update.CallbackQuery.Message.MessageId,
             replyMarkup: new InlineKeyboardMarkup(new[]
             {
                 new []
                 {
                     InlineKeyboardButton.WithCallbackData("Обновленная кнопка 1", "updated_button1"),
-                    InlineKeyboardButton.WithCallbackData("Обновленная кнопка 2", "updated_button2")
+                    InlineKeyboardButton.WithCallbackData("Обновленная кнопка 2", "updated_button2"),
+                    InlineKeyboardButton.WithCallbackData("Назад", "button4")
                 }
             }));
                     break;
-                case "buttonTransactionHistory":
+                case "button3":
                     await botClient.SendTextMessageAsync(update.CallbackQuery.Message.Chat.Id, answer);
                     break;
                 case "buttonSettings":
@@ -363,7 +403,7 @@ internal class Program
                 case "buttonmain":
                     await InlineButtonMainMenu(botClient, update.CallbackQuery.Message.Chat.Id, cancellationToken);
                     break;
-                case "buttonBack":
+                case "button4":
                     // await botClient.DeleteMessageAsync(update.CallbackQuery.Message.Chat.Id, messageId: message.MessageId - 1, cancellationToken: cancellationToken);
 
                     await InlineButtonMainMenu(botClient, update.CallbackQuery.Message.Chat.Id, cancellationToken);
