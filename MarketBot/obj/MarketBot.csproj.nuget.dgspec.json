@@ -1,20 +1,24 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\315\\Documents\\GitHub\\MarketBotTelegram\\MarketBot\\MarketBot.csproj": {}
+    "D:\\exe\\TaSamay\\Telegram\\MarketTelegrambot\\.git\\MarketBotTelegram\\MarketBot\\MarketBot.csproj": {}
   },
   "projects": {
-    "C:\\Users\\315\\Documents\\GitHub\\MarketBotTelegram\\MarketBot\\MarketBot.csproj": {
+    "D:\\exe\\TaSamay\\Telegram\\MarketTelegrambot\\.git\\MarketBotTelegram\\MarketBot\\MarketBot.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\315\\Documents\\GitHub\\MarketBotTelegram\\MarketBot\\MarketBot.csproj",
+        "projectUniqueName": "D:\\exe\\TaSamay\\Telegram\\MarketTelegrambot\\.git\\MarketBotTelegram\\MarketBot\\MarketBot.csproj",
         "projectName": "MarketBot",
-        "projectPath": "C:\\Users\\315\\Documents\\GitHub\\MarketBotTelegram\\MarketBot\\MarketBot.csproj",
-        "packagesPath": "C:\\Users\\315\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\315\\Documents\\GitHub\\MarketBotTelegram\\MarketBot\\obj\\",
+        "projectPath": "D:\\exe\\TaSamay\\Telegram\\MarketTelegrambot\\.git\\MarketBotTelegram\\MarketBot\\MarketBot.csproj",
+        "packagesPath": "C:\\Users\\Vasia\\.nuget\\packages\\",
+        "outputPath": "D:\\exe\\TaSamay\\Telegram\\MarketTelegrambot\\.git\\MarketBotTelegram\\MarketBot\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "D:\\DodcCode\\NuGetPackages"
+        ],
         "configFilePaths": [
-          "C:\\Users\\315\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Vasia\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -22,6 +26,7 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -75,7 +80,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.202\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.400\\RuntimeIdentifierGraph.json"
         }
       }
     }

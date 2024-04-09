@@ -286,16 +286,95 @@ internal class Program
                     //await botClient.SendTextMessageAsync(update.CallbackQuery.Message.Chat.Id, "⠀⠀⠀⠀⠀⠀⠀⠀Аккаунт Телеграмм⠀⠀⠀⠀⠀⠀⠀⠀", replyMarkup: keyboardInlineMenu, cancellationToken: cancellationToken);
                     break;
                 case "buttonAccountVK":
+                    var keyboardInlineMenuVk = new InlineKeyboardMarkup(new[]
+                      {
+                        new []
+                        {
+                            InlineKeyboardButton.WithCallbackData("Чистый  Аккаунт",callbackData:"ButtonVKNew"),
+                            InlineKeyboardButton.WithCallbackData("С потвержденным телефоном",callbackData:"buttonVKconfirmed"),
+                        },
+                        new []
+                        {
+                            InlineKeyboardButton.WithCallbackData("Аккаунт с панели(взломаный)",callbackData:"buttonVKvzlom"),
 
+                            InlineKeyboardButton.WithCallbackData("Случайный акк", callbackData: "buttonVkRandomAccount"),
 
+                        },
+                        new []
+                        {
+                             InlineKeyboardButton.WithCallbackData("⬅️ Назад", callbackData: "buttonBackMenu"),
+                        }
+                     
+                    });
+                    await botClient.EditMessageReplyMarkupAsync(update.CallbackQuery.Message.Chat.Id, update.CallbackQuery.Message.MessageId, replyMarkup: keyboardInlineMenuVk);
                     break;
                 case "buttonAccountSteam":
+                    var keyboardInlineMenuSteam = new InlineKeyboardMarkup(new[]
+                     {
+                        new []
+                        {
+                            InlineKeyboardButton.WithCallbackData("Чистый  Аккаунт",callbackData:"ButtonSteamNew"),
+                            InlineKeyboardButton.WithCallbackData("С потвержденнием",callbackData:"buttonSteamconfirmed"),
+                        },
+                        new []
+                        {
+                            InlineKeyboardButton.WithCallbackData("С Steam Guard",callbackData:"buttonSteamGuard"),
 
+                            InlineKeyboardButton.WithCallbackData("Случайный акк", callbackData: "buttonSteamRandomAccount"),
+
+                        },
+                        new []
+                        {
+                             InlineKeyboardButton.WithCallbackData("⬅️ Назад", callbackData: "buttonBackMenu"),
+                        }
+
+                    });
+                    await botClient.EditMessageReplyMarkupAsync(update.CallbackQuery.Message.Chat.Id, update.CallbackQuery.Message.MessageId, replyMarkup: keyboardInlineMenuSteam);
                     break;
                 case "buttonAccountEA":
+                    var keyboardInlineMenuEA = new InlineKeyboardMarkup(new[]
+                     {
+                        new []
+                        {
+                            InlineKeyboardButton.WithCallbackData("Чистый  Аккаунт",callbackData:"ButtonVKNew"),
+                            InlineKeyboardButton.WithCallbackData("С потвержденным телефоном",callbackData:"buttonVKconfirmed"),
+                        },
+                        new []
+                        {
+                            InlineKeyboardButton.WithCallbackData("Аккаунт с панели(взломаный)",callbackData:"buttonVKvzlom"),
+
+                            InlineKeyboardButton.WithCallbackData("Случайный акк", callbackData: "buttonVkRandomAccount"),
+
+                        },
+                        new []
+                        {
+                             InlineKeyboardButton.WithCallbackData("⬅️ Назад", callbackData: "buttonBackMenu"),
+                        }
+
+                    });
+                    await botClient.EditMessageReplyMarkupAsync(update.CallbackQuery.Message.Chat.Id, update.CallbackQuery.Message.MessageId, replyMarkup: keyboardInlineMenuEA);
                     break;
                 case "buttonAccountEGS":
+                    var keyboardInlineMenuEGS = new InlineKeyboardMarkup(new[]
+                     {
+                        new []
+                        {
+                            InlineKeyboardButton.WithCallbackData("Чистый  Аккаунт",callbackData:"ButtonVKNew"),
+                            InlineKeyboardButton.WithCallbackData("C случайными играми",callbackData:"buttonVKconfirmed"),
+                        },
+                        new []
+                        {
 
+                            InlineKeyboardButton.WithCallbackData("Случайный акк", callbackData: "buttonVkRandomAccount"),
+
+                        },
+                        new []
+                        {
+                             InlineKeyboardButton.WithCallbackData("⬅️ Назад", callbackData: "buttonBackMenu"),
+                        }
+
+                    });
+                    await botClient.EditMessageReplyMarkupAsync(update.CallbackQuery.Message.Chat.Id, update.CallbackQuery.Message.MessageId, replyMarkup: keyboardInlineMenuEGS);
                     break;
                 case "buttonBackMenu":
                    
@@ -379,8 +458,71 @@ internal class Program
     }
     public static async Task VkAccount(ITelegramBotClient botClient, Telegram.Bot.Types.Update update, CancellationToken cancellationToken)
     {
+        var message = update.Message;
 
+
+        if (update != null && update.CallbackQuery != null)
+        {
+            string answer = update.CallbackQuery.Data;
+            switch (answer)
+            {
+                case "ButtonTelegramNew":
+                    await botClient.SendTextMessageAsync(update.CallbackQuery.Message.Chat.Id, "Ты выбрал новый   телеграмм");
+
+
+
+
+
+                    break;
+                case "buttonTelegramPremium":
+                    await botClient.SendTextMessageAsync(update.CallbackQuery.Message.Chat.Id, "Ты выбрал новый  акк для доты  ");
+
+                    break;
+                case "buttonTelegramauthorized":
+                    await botClient.SendTextMessageAsync(update.CallbackQuery.Message.Chat.Id, "Ты выбрал новый   авторизованый акк");
+                    break;
+                case "buttonTelegramRandomAccount":
+                    await botClient.SendTextMessageAsync(update.CallbackQuery.Message.Chat.Id, "Ты выбрал случайунй акк");
+                    break;
+
+                case "buttonBackMenu":
+                    var keyboardInlineMarketAccount = new InlineKeyboardMarkup(new[]
+                      {
+        new[]
+        {
+         InlineKeyboardButton.WithCallbackData("Аккаунт Телеграмм",callbackData:"buttonAccountTelegarm")
+        },
+        new []
+        {
+            InlineKeyboardButton.WithCallbackData("Аккакнт VK",callbackData: "buttonAccountVK"),
+        },
+        new[]
+        {
+            InlineKeyboardButton.WithCallbackData("Аккакнт Steam",callbackData: "buttonAccountSteam"),
+
+        },
+        new []
+        {
+             InlineKeyboardButton.WithCallbackData("Аккакнт EA",callbackData: "buttonAccountEA"),
+        },
+        new[]
+        {
+              InlineKeyboardButton.WithCallbackData("Аккакнт Epic Game Store",callbackData: "buttonAccountEGS"),
+
+        },
+        new []
+        {
+             InlineKeyboardButton.WithCallbackData("⬅️ Назад",callbackData: "buttonBack"),
+        },
+        });
+                    await botClient.EditMessageReplyMarkupAsync(update.CallbackQuery.Message.Chat.Id, update.CallbackQuery.Message.MessageId, replyMarkup: keyboardInlineMarketAccount, cancellationToken: cancellationToken);
+                    break;
+            }
+
+
+        }
     }
+
     public static async Task SteamAccount(ITelegramBotClient botClient, Telegram.Bot.Types.Update update, CancellationToken cancellationToken)
     {
 
